@@ -1,0 +1,26 @@
+{
+  "name": "six-keycloakadmin-docs",
+  "version": "1.0.0",
+  "description": "Documentation for Six.KeycloakAdmin library",
+  "main": "index.js",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "keywords": [
+    "keycloak",
+    "dotnet",
+    "documentation",
+    "six-tech",
+    "six.technology"
+  ],
+  "author": "Six Technology",
+  "license": "ISC",
+  "dependencies": {
+    "@astrojs/starlight": "^0.35.2",
+    "@six-tech/starlight-theme-six": "^1.0.7",
+    "astro": "^5.13.3"
+  }
+}

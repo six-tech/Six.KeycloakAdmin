@@ -1,0 +1,21 @@
+<Project>
+    <PropertyGroup>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <NoWarn>CS1591;CS0649;CS0169;CA1050;CA1822;CA2211;IDE1006;CS1574, CS1584, CS1581, CS1580</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Update="StyleCop.Analyzers" VersionInfo="1.2.0-beta.507"/>
+        <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json" Link="stylecop.json"/>
+    </ItemGroup>
+
+    <PropertyGroup>
+        <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory).ruleset</CodeAnalysisRuleSet>
+        <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
+        <AnalysisLevel>preview</AnalysisLevel>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <WarningsNotAsErrors>CS1591;CS0649;CS0169;CA1050;CA1822;CA2211;IDE1006;CS1574, CS1584, CS1581, CS1580;NU5104</WarningsNotAsErrors>
+    </PropertyGroup>
+
+</Project>

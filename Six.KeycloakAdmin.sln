@@ -1,0 +1,52 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{6C4D298B-81FB-2B6B-5AB6-46205EDDC72C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AB3BF05-4346-4AA6-1389-037BE0695223}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Six.KeycloakAdmin", "libs\Six.KeycloakAdmin\Six.KeycloakAdmin.csproj", "{4B120C9C-009D-7309-CBE9-D9B5F76FC498}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Six.KeycloakAdmin.Common", "libs\Six.KeycloakAdmin.Common\Six.KeycloakAdmin.Common.csproj", "{A1E2EA93-77D7-DA24-042C-5CDF73BF604D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Six.KeycloakAdmin.Tests.AppHost", "tests\Six.KeycloakAdmin.Tests.AppHost\Six.KeycloakAdmin.Tests.AppHost.csproj", "{D3FFF963-D307-0596-04A5-F41A58A8C638}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Six.KeycloakAdmin.Tests.Functional", "tests\Six.KeycloakAdmin.Tests.Functional\Six.KeycloakAdmin.Tests.Functional.csproj", "{4A84DA1D-51A5-BEDB-A073-E4A33AE2A908}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4B120C9C-009D-7309-CBE9-D9B5F76FC498}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B120C9C-009D-7309-CBE9-D9B5F76FC498}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B120C9C-009D-7309-CBE9-D9B5F76FC498}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B120C9C-009D-7309-CBE9-D9B5F76FC498}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1E2EA93-77D7-DA24-042C-5CDF73BF604D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1E2EA93-77D7-DA24-042C-5CDF73BF604D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1E2EA93-77D7-DA24-042C-5CDF73BF604D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1E2EA93-77D7-DA24-042C-5CDF73BF604D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3FFF963-D307-0596-04A5-F41A58A8C638}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3FFF963-D307-0596-04A5-F41A58A8C638}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3FFF963-D307-0596-04A5-F41A58A8C638}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3FFF963-D307-0596-04A5-F41A58A8C638}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A84DA1D-51A5-BEDB-A073-E4A33AE2A908}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A84DA1D-51A5-BEDB-A073-E4A33AE2A908}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A84DA1D-51A5-BEDB-A073-E4A33AE2A908}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A84DA1D-51A5-BEDB-A073-E4A33AE2A908}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4B120C9C-009D-7309-CBE9-D9B5F76FC498} = {6C4D298B-81FB-2B6B-5AB6-46205EDDC72C}
+		{A1E2EA93-77D7-DA24-042C-5CDF73BF604D} = {6C4D298B-81FB-2B6B-5AB6-46205EDDC72C}
+		{D3FFF963-D307-0596-04A5-F41A58A8C638} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
+		{4A84DA1D-51A5-BEDB-A073-E4A33AE2A908} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {34F7CB35-251D-44A7-BA2D-A7A5CEC50D37}
+	EndGlobalSection
+EndGlobal

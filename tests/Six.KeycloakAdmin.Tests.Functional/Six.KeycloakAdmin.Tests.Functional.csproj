@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+        
+        <!-- Coverlet Collector Configuration -->
+        <CollectCoverage>true</CollectCoverage>
+        <CoverletOutputFormat>cobertura;html;json</CoverletOutputFormat>
+        <CoverletOutput>$(MSBuildThisFileDirectory)TestResults\</CoverletOutput>
+        <CoverletOutputDirectory>$(MSBuildThisFileDirectory)TestResults\</CoverletOutputDirectory>
+        <MergeWith>$(MSBuildThisFileDirectory)TestResults\coverage.json</MergeWith>
+        <ExcludeByFile>**/bin/**/*,**/obj/**/*,**/test/**/*</ExcludeByFile>
+        <ExcludeByAttribute>Obsolete,GeneratedCodeAttribute,CompilerGeneratedAttribute</ExcludeByAttribute>
+        <IncludeTestAssembly>false</IncludeTestAssembly>
+        <SingleHit>false</SingleHit>
+        <UseSourceLink>true</UseSourceLink>
+        <Include>**/*.cs</Include>
+        <Exclude>**/*.g.cs,**/*.g.i.cs,**/*.Designer.cs,**/*.AssemblyInfo.cs</Exclude>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Aspire.Hosting.Testing" Version="9.3.1"/>
+        <PackageReference Include="coverlet.collector" Version="6.0.2">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0"/>
+        <PackageReference Include="xunit" Version="2.9.3"/>
+        <PackageReference Include="xunit.runner.visualstudio" Version="3.0.2"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="System.Net"/>
+        <Using Include="Microsoft.Extensions.DependencyInjection"/>
+        <Using Include="Aspire.Hosting.ApplicationModel"/>
+        <Using Include="Aspire.Hosting.Testing"/>
+        <Using Include="Xunit"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\libs\Six.KeycloakAdmin\Six.KeycloakAdmin.csproj" />
+      <ProjectReference Include="..\Six.KeycloakAdmin.Tests.AppHost\Six.KeycloakAdmin.Tests.AppHost.csproj" />
+    </ItemGroup>
+
+</Project>

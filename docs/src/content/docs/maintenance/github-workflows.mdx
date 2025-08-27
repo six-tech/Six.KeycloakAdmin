@@ -1,0 +1,71 @@
+---
+title: GitHub Workflows
+description: Repository workflows for Keycloak Admin
+---
+
+# Overview
+
+The `Six.KeycloakAdmin` repository uses GitHub Actions workflows to automate critical development processes including 
+continuous integration, testing, and quality assurance. These workflows ensure code quality, maintain consistent build 
+processes, and provide immediate feedback on pull requests and code changes.
+
+
+# PR Test Workflow
+----
+The **PR Test Workflow** (`pr-test.yml`) is the primary quality gate for all pull requests targeting the `main` branch. 
+This workflow automatically builds the solution, runs comprehensive tests, generates coverage reports, and provides 
+detailed feedback to developers before code can be merged.
+
+**When it runs:**
+- ✅ **Pull Request Opened**: Triggers on new PRs targeting `main`
+- ✅ **Pull Request Updated**: Runs on every commit pushed to PR branches
+- ✅ **Pull Request Synchronized**: Executes when PR is updated with new commits
+- ❌ **Direct Push to Main**: Does not run on direct commits to `main` (protected branch)
+
+
+### Coverage Analysis and Reporting
+The workflow includes a coverage analysis step that measures how much of the codebase is tested by the unit tests. 
+This helps maintain high code quality and ensures that new changes do not introduce untested code.
+
+**Coverage Features:**
+- **Instrumentation**: Instruments code for coverage measurement
+- **Data Collection**: Gathers execution data during test runs
+- **Coverage Reports**: Generates detailed coverage metrics
+- **Quality Metrics**: Ensures adequate test coverage
+
+**Report Generation:**
+- **Data Processing**: Analyzes collected coverage data
+- **Report Formats**: Generates multiple report formats (HTML, XML, etc.)
+- **Quality Gates**: Applies coverage thresholds and rules
+- **Artifact Preparation**: Prepares reports for upload
+
+**Artifact Management:**
+- **Conditional Upload**: `if: always()` ensures upload even on failure
+- **Retention**: Keeps artifacts for 30 days for analysis
+
+
+# GitHub Pages Deployment Workflow
+----
+The **GitHub Pages Deployment Workflow** (`deploy-gh-pages.yml`) automatically builds and deploys the project 
+documentation to GitHub Pages whenever changes are pushed to the `main` branch. This ensures that the documentation 
+is always up-to-date with the latest code changes.
+
+**When it runs:**
+- ✅ **Push to Main**: Triggers on every commit pushed to the `main` branch
+- ✅ **Manual Trigger**: Can be manually executed from the GitHub Actions tab
+- ❌ **Pull Requests**: Does not run on PRs (only on main branch pushes)
+
+### Configuration
+The workflow is configured to:
+- Build from the `./docs` directory containing the Astro documentation site
+- Deploy to the `github-pages` environment with proper permissions
+
+### Permissions
+The workflow requires specific permissions to function properly:
+- **Contents**: Read access to clone the repository
+- **Pages**: Write access to deploy to GitHub Pages
+- **ID Token**: Write access for secure authentication during deployment
+
+
+
+

@@ -1,0 +1,63 @@
+---
+title: Six Keycloak Admin
+description: Comprehensive <strong>.NET client for interacting with Keycloak</strong> servers
+head:
+  - tag: title
+editUrl: false
+template: splash
+---
+
+
+
+
+import {Card, CardGrid} from '@astrojs/starlight/components'
+import {ContainerSection, HeroX} from '@six-tech/starlight-theme-six/components'
+import heroImage from '../../assets/six-keycloak-admin-bg-wide-1980-01.png'
+
+<HeroX
+    height="400px"
+    mt="2rem"
+    mb="0"
+    px="4rem"
+    radius="1.5rem"
+    image={{
+        background: heroImage,
+        alt: "Hero background image",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        contentPosition: "bottom-left"
+    }}
+    actions={[
+        {
+            text: "Get Started",
+            link: "/Six.KeycloakAdmin/getting-started/introduction/"
+        }
+    ]}
+/>
+
+<ContainerSection>
+    <CardGrid>
+        <Card title="Powerful" icon="rocket">
+            Provides extensive support for almost every aspect of Keycloak’s administrative REST API.
+        </Card>
+    
+        <Card title="Easy Authentication" icon="pencil">
+            Support for multiple authentication methods (basic auth, client secret, token) with **built-in token caching**
+            for performance.
+        </Card>
+    
+        <Card title="Easy Testing" icon="approve-check-circle">
+            Uses **.NET Aspire** for all under the hood plumbing, no additional setup needed for the tests. Just run the
+            tests!
+        </Card>
+    
+        <Card title="Minimal Dependencies" icon="external">
+            No third party libraries required, uses built-in .NET libraries and features.
+        </Card>
+    </CardGrid>
+</ContainerSection>
+
+
+
+

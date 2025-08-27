@@ -1,0 +1,19 @@
+﻿namespace Six.KeycloakAdmin.Models.RealmsAdmin;
+
+[PublicAPI]
+[ExcludeFromCodeCoverage]
+public record RealmEventsConfig
+{
+	[JsonPropertyName("adminEventsDetailsEnabled")]
+	public bool? AdminEventsDetailsEnabled { get; set; }
+	[JsonPropertyName("adminEventsEnabled")]
+	public bool? AdminEventsEnabled { get; set; }
+	[JsonPropertyName("enabledEventTypes")]
+	public IEnumerable<string> EnabledEventTypes { get; set; } = [];
+	[JsonPropertyName("eventsEnabled")]
+	public bool? EventsEnabled { get; set; }
+	[JsonPropertyName("eventsExpiration")]
+	public long? EventsExpiration { get; set; }
+	[JsonPropertyName("eventsListeners")]
+	public IEnumerable<string> EventsListeners { get; set; } = [];
+}
