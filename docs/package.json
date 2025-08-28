@@ -4,10 +4,10 @@
   "description": "Documentation for Six.KeycloakAdmin library",
   "main": "index.js",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "docs: dev": "astro dev",
+    "docs: build": "astro build",
+    "docs: preview": "astro preview",
+    "docs: astro": "astro"
   },
   "keywords": [
     "keycloak",
@@ -17,10 +17,13 @@
     "six.technology"
   ],
   "author": "Six Technology",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@astrojs/starlight": "^0.35.2",
-    "@six-tech/starlight-theme-six": "^1.0.7",
-    "astro": "^5.13.3"
+    "@fontsource/inter": "^5.2.6",
+    "@fontsource/jetbrains-mono": "^5.2.6",
+    "@six-tech/starlight-theme-six": "^1.0.12",
+    "astro": "^5.13.4",
+    "sharp": "^0.34.3"
   }
 }
