@@ -10,7 +10,7 @@ export default defineConfig({
             title: 'Keycloak Admin',
             description: 'Modern .NET client for interacting with Keycloak servers',
             editLink: {
-                baseUrl: 'https://github.com/six-tech/Six.KeycloakAdmin/edit/main/docs/',
+                baseUrl: 'https://github.com/six-tech/Six.KeycloakAdmin/edit/main/docs/src/content/docs/',
             },
             social: [
                 {
