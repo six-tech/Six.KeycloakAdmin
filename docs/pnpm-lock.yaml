@@ -18,8 +18,8 @@ importers:
         specifier: ^5.2.6
         version: 5.2.6
       '@six-tech/starlight-theme-six':
-        specifier: ^1.0.12
-        version: 1.0.12(@astrojs/starlight@0.35.2(astro@5.13.4(@types/node@24.3.0)(rollup@4.49.0)(typescript@5.9.2)))(@fontsource/inter@5.2.6)(@fontsource/jetbrains-mono@5.2.6)(sharp@0.34.3)
+        specifier: ^1.0.13
+        version: 1.0.13(@astrojs/starlight@0.35.2(astro@5.13.4(@types/node@24.3.0)(rollup@4.49.0)(typescript@5.9.2)))(@fontsource/inter@5.2.6)(@fontsource/jetbrains-mono@5.2.6)(sharp@0.34.3)
       astro:
         specifier: ^5.13.4
         version: 5.13.4(@types/node@24.3.0)(rollup@4.49.0)(typescript@5.9.2)
@@ -659,8 +659,8 @@ packages:
   '@shikijs/vscode-textmate@10.0.2':
     resolution: {integrity: sha512-83yeghZ2xxin3Nj8z1NMd/NCuca+gsYXswywDy5bHvwlWL8tpTQmzGeUuHd9FC3E/SBEMvzJRwWEOz5gGes9Qg==}
 
-  '@six-tech/starlight-theme-six@1.0.12':
-    resolution: {integrity: sha512-4Mwg83Yd7840wxfjMsdAbYVujAqcEphIjyJo6JQo+Qi6mZoIO3CVMU/9sPxFO3ly1fXWJwithASnoKFffGETZA==}
+  '@six-tech/starlight-theme-six@1.0.13':
+    resolution: {integrity: sha512-Gk0QJbBDvG9eXu1U2ZK2YM4FXLeWVEI7ERkB7DFDRieffeA1N3AC5h5lNw72aGiyjkwoiUbVmNDql5YtcHwlaQ==}
     peerDependencies:
       '@astrojs/starlight': '>=0.30.0'
       '@fontsource/inter': ^5.2.6
@@ -2494,7 +2494,7 @@ snapshots:
 
   '@shikijs/vscode-textmate@10.0.2': {}
 
-  '@six-tech/starlight-theme-six@1.0.12(@astrojs/starlight@0.35.2(astro@5.13.4(@types/node@24.3.0)(rollup@4.49.0)(typescript@5.9.2)))(@fontsource/inter@5.2.6)(@fontsource/jetbrains-mono@5.2.6)(sharp@0.34.3)':
+  '@six-tech/starlight-theme-six@1.0.13(@astrojs/starlight@0.35.2(astro@5.13.4(@types/node@24.3.0)(rollup@4.49.0)(typescript@5.9.2)))(@fontsource/inter@5.2.6)(@fontsource/jetbrains-mono@5.2.6)(sharp@0.34.3)':
     dependencies:
       '@astrojs/starlight': 0.35.2(astro@5.13.4(@types/node@24.3.0)(rollup@4.49.0)(typescript@5.9.2))
       '@fontsource/inter': 5.2.6
