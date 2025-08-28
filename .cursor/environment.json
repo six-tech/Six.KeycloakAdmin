@@ -1,5 +1,0 @@
-{
-  "agentCanUpdateSnapshot": true,
-  "install": "dotnet restore",
-  "start": "dotnet run"
-}
