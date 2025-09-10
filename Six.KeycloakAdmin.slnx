@@ -34,12 +34,12 @@
       <Configuration Solution="Release|x86" Project="Release|Any CPU" />
     </Project>
     <File Path="tests\insurance-realm-export.json" />
+    <File Path="tests\Directory.Build.props" />
   </Folder>
   <Folder Name="/_config/">
     <File Path=".gitignore" />
     <File Path="global.json" />
-    <File Path="LICENSE" />
-    <File Path="README.md" />
     <File Path="Directory.Build.props" />
+    <File Path="docs\astro.config.mjs" />
   </Folder>
 </Solution>

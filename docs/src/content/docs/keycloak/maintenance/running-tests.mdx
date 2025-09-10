@@ -1,0 +1,103 @@
+---
+title: Testing the Library
+description: Testing Keycloak Admin using .NET Aspire for seamless Keycloak integration
+---
+
+
+
+
+
+import {Aside} from '@astrojs/starlight/components'
+
+# Introduction
+
+The `Six.KeycloakAdmin` library provides a powerful testing experience that leverages **.NET Aspire** to automatically provision and manage Keycloak instances for your tests. This approach eliminates the need for manual setup, configuration, or external dependencies, making testing both reliable and convenient.
+
+# Key Benefits
+
+- **Zero Configuration**: No manual Keycloak setup required
+- **Real Integration Testing**: Tests run against actual Keycloak instances
+- **Automatic Cleanup**: Containers are automatically disposed after tests
+- **Cross-Platform**: Works consistently across Windows, macOS, and Linux
+- **CI/CD Ready**: Seamlessly integrates with automated testing pipelines
+
+
+# Running Tests
+
+By using **.NET Aspire**, the tests run against the real Keycloak instance and are automatically started, configured, and cleaned up. This ensures the tests validate actual integration behavior rather than mocked responses, providing confidence that the code will work correctly in production environments.
+
+Tests use two Keycloak realms:
+- **Master**
+- **Insurance**
+
+Master realm is the default one, and Insurance is the imported one just for testing purposes and loaded using Aspire 
+during the orchestration process (from `insurance-realm-export.json` in the `tests` directory).
+
+<Aside>
+    Be sure that Docker is running before running the tests.
+</Aside>
+
+<Aside>
+    Default credentials for both realms are defined in `KeycloakAdminDefaults.cs`:
+    - Username: `admin`
+    - Password: `admin`
+    
+    If for some reason you want to change the credentials, **you need to make sure both realms have the **same 
+    username and password** as the tests use the same credentials for both master and Insurance realms.**
+</Aside>
+
+
+## Running Tests Directly from IDE
+Since Aspire orchestrates the Keycloak instance, you can run the tests directly from your IDE as usual.
+
+## Running Tests using .NET 10 File-Based Apps
+
+This directory contains file-based apps that use the new .NET 10 feature to provide powerful testing and coverage tools without the need for traditional project files or scripts.
+
+<Aside>
+    CSharp File based apps **need .NET 10 installed.**
+
+    Download the latest .NET 10 SDK from the official [.NET download
+    page](https://dotnet.microsoft.com/en-us/download/dotnet/10.0).
+</Aside>
+
+
+### 1. Interactive Test Menu
+An interactive menu-driven application used for lots of things (packaging, testing, etc.).
+
+```
+# From solution root:
+dotnet run build/runner.cs
+```
+
+Options related to testing:
+- Run all tests
+- Run tests with coverage
+- Generate coverage reports
+- Run the specific test project
+- Clean test results
+
+### 2.  Run All Tests
+Runs all test projects in the solution with a beautiful console output.
+
+```
+# From solution root:
+dotnet run build/tests-run.cs
+```
+
+### 3.  Run Tests with Coverage
+Executes all tests with the code coverage collection and displays a summary.
+
+```
+# From solution root:
+dotnet run build/tests-coverage.cs
+```
+
+### 4. Generate Coverage Reports
+Creates detailed HTML coverage reports and opens them in your browser.
+
+```
+# From solution root:
+dotnet run build/tests-report.cs
+```
+

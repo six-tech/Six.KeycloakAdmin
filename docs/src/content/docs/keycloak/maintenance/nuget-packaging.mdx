@@ -1,0 +1,120 @@
+---
+title: Nuget Packaging
+description: How to package and publish nuget package(s)
+---
+
+
+
+
+
+import {Aside} from '@astrojs/starlight/components'
+
+# Overview
+
+The `Six.KeycloakAdmin` project uses an automated NuGet mini-packaging system that streamlines the entire process from 
+source code to published packages. This system automatically discovers all library projects, builds them with optimized configurations, creates properly versioned NuGet packages, and publishes them to your specified feeds with minimal manual intervention.
+
+<Aside>
+    CSharp File based apps **need .NET 10 installed.**
+
+    Download the latest .NET 10 SDK from the official [.NET download
+    page](https://dotnet.microsoft.com/en-us/download/dotnet/10.0).
+</Aside>
+
+
+# Packing & Publishing
+
+The NuGet packaging system provides three distinct publishing workflows, each designed for specific use cases and environments. Each workflow automatically handles versioning, dependency resolution, package signing, and metadata generation according to industry best practices.
+
+<Aside>
+    **Environment Configuration for NuGet Publishing**
+
+    The packaging system requires specific environment variables to be configured based on your publishing targets.
+    Configure only the variables needed for your intended distribution strategy:
+
+    - `DEV_LOCAL_NUGET_FEED_URL` - Directory path for local development feed storage
+    - `PRIVATE_NUGET_FEED_URL` - Endpoint for your private NuGet feed
+    - `PRIVATE_NUGET_FEED_PAT` - Personal Access Token (PAT) for private feed authentication
+    - `PUBLIC_NUGET_FEED_PAT` - Personal Access Token (PAT) for `NuGet.org` publishing
+
+    **Note:** For local-only publishing, only `DEV_LOCAL_NUGET_FEED_URL` is required. Additional variables are
+    automatically detected and used when present.
+</Aside>
+
+## To local (development) feed
+
+Local development feeds are ideal for testing packages during development, sharing with team members, or validating package behavior before wider distribution. This workflow creates packages optimized for development scenarios with enhanced debugging information and local path resolution.
+
+```
+# Pack and publish to loval development feed (default)
+dotnet run build/nuget-pack.cs
+
+# One can also specify the local feed path explicitly
+dotnet run build/nuget-pack.cs --local
+```
+
+## To private remote feed
+
+Private remote feeds enable secure distribution of packages within your organization or to trusted partners (for 
+example, to private GitHub repositories).
+
+```
+# Pack and publish to private feed
+dotnet run build/nuget-pack.cs --private
+```
+
+## To public remote feed
+
+Public distribution to **NuGet.org** represents the final stage of package maturity, making your libraries available to 
+the global .NET community.
+
+```
+# Pack and publish to public NuGet.org
+dotnet run build/nuget-pack.cs --public
+```
+
+
+## Build Configuration Options
+
+The packaging system defaults to Release configuration for optimal performance and production-ready packages. However, you can override this behavior for specific testing or debugging scenarios where additional diagnostic information is required.
+
+```
+# Pack with debug configuration
+dotnet run build/nuget-pack.cs --debug
+```
+
+
+# Additional Configuration (In-Script)
+
+The packaging script automatically discovers projects to package, but you can customize this behavior by modifying the script configuration directly. This is useful when you have specific project organization requirements or need to exclude certain projects from packaging.
+
+### Search Directories
+
+By default, the script searches for projects in the `libs` directory. You can modify the `searchDirectories` list to include additional directories or change the search scope:
+
+``` csharp
+// In build/nuget-pack.cs
+var searchDirectories = new List<string>
+{
+    "libs",           // Default library projects
+    "tools",          // Additional tools directory
+    "extensions"      // Custom extensions directory
+};
+```
+
+### Ignored Projects
+
+You can specify projects that should be excluded from packaging by adding their full project names to the `ignoredProjects` list:
+
+``` csharp
+// In build/nuget-pack.cs
+var ignoredProjects = new List<string>
+{
+    "Six.Example.TestProject",        // Exclude test projects
+    "Six.Example.BenchmarkProject",   // Exclude benchmark projects
+    "Six.Example.ExperimentalProject" // Exclude experimental features
+};
+```
+
+**Note:** Project names should match the exact filename without the `.csproj` extension. The script automatically filters out these projects during discovery, ensuring they are not included in the packaging process.
+

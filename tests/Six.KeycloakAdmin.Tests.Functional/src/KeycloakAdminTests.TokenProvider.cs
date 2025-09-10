@@ -1,9 +1,4 @@
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Options;
-using Six.KeycloakAdmin.TokenProvider;
-using System.Collections.Concurrent;
-using System.Diagnostics;
-using System.Text.Json.Serialization;
+using Six.KeycloakAdmin.TokenCache;
 
 namespace Six.KeycloakAdmin.Tests.Functional;
 
@@ -22,7 +17,7 @@ public partial class KeycloakAdminTests
     services.AddLogging();
     services.AddHttpClient();
     services.AddMemoryCache();
-    services.AddSingleton<ITokenCache, Six.KeycloakAdmin.TokenCache.TokenCache>();
+    services.AddSingleton<ITokenCache, TokenCache.TokenCache>();
     services.Configure<KeycloakAdminOptions>(options =>
     {
       options.BaseUrl = "https://keycloak.example.com";
@@ -66,7 +61,7 @@ public partial class KeycloakAdminTests
     services.AddLogging();
     services.AddHttpClient();
     services.AddMemoryCache();
-    services.AddSingleton<ITokenCache, Six.KeycloakAdmin.TokenCache.TokenCache>();
+    services.AddSingleton<ITokenCache, TokenCache.TokenCache>();
     services.Configure<KeycloakAdminOptions>(options =>
     {
       options.BaseUrl = "https://keycloak.example.com";
@@ -115,7 +110,7 @@ public partial class KeycloakAdminTests
     services.AddLogging();
     services.AddHttpClient();
     services.AddMemoryCache();
-    services.AddSingleton<ITokenCache, Six.KeycloakAdmin.TokenCache.TokenCache>();
+    services.AddSingleton<ITokenCache, TokenCache.TokenCache>();
     services.Configure<KeycloakAdminOptions>(options =>
     {
       options.BaseUrl = "https://keycloak.example.com";
@@ -160,7 +155,7 @@ public partial class KeycloakAdminTests
     services.AddLogging();
     services.AddHttpClient();
     services.AddMemoryCache();
-    services.AddSingleton<ITokenCache, Six.KeycloakAdmin.TokenCache.TokenCache>();
+    services.AddSingleton<ITokenCache, TokenCache.TokenCache>();
     services.Configure<KeycloakAdminOptions>(options =>
     {
       options.BaseUrl = "https://keycloak.example.com";
@@ -212,7 +207,7 @@ public partial class KeycloakAdminTests
     services.AddLogging();
     services.AddHttpClient();
     services.AddMemoryCache();
-    services.AddSingleton<ITokenCache, Six.KeycloakAdmin.TokenCache.TokenCache>();
+    services.AddSingleton<ITokenCache, TokenCache.TokenCache>();
     services.Configure<KeycloakAdminOptions>(options =>
     {
       options.BaseUrl = "https://keycloak.example.com";
@@ -262,7 +257,7 @@ public partial class KeycloakAdminTests
     services.AddLogging();
     services.AddHttpClient();
     services.AddMemoryCache();
-    services.AddSingleton<ITokenCache, Six.KeycloakAdmin.TokenCache.TokenCache>();
+    services.AddSingleton<ITokenCache, TokenCache.TokenCache>();
     services.Configure<KeycloakAdminOptions>(options =>
     {
       options.BaseUrl = "https://keycloak.example.com";
@@ -341,9 +336,9 @@ public partial class KeycloakAdminTests
     {
     }
 
-    protected override async Task<Six.KeycloakAdmin.TokenCache.TokenCacheEntry?> RefreshTokenAsync(
+    protected override async Task<TokenCacheEntry?> RefreshTokenAsync(
       string realm,
-      Six.KeycloakAdmin.TokenCache.TokenCacheEntry cachedEntry,
+      TokenCacheEntry cachedEntry,
       CancellationToken cancellationToken = default)
     {
       // Simulate network latency
@@ -357,10 +352,10 @@ public partial class KeycloakAdminTests
       var refreshValue = $"test-refresh-token-{_tokenCounter}";
       var expiryTime = DateTimeOffset.UtcNow.AddSeconds(TokenExpirySeconds);
 
-      return new Six.KeycloakAdmin.TokenCache.TokenCacheEntry(tokenValue, expiryTime, refreshValue);
+      return new TokenCacheEntry(tokenValue, expiryTime, refreshValue);
     }
 
-    async Task<Six.KeycloakAdmin.TokenCache.TokenCacheEntry?> RequestTokenResponseAsync(
+    async Task<TokenCacheEntry?> RequestTokenResponseAsync(
       string realm,
       string clientSecret,
       CancellationToken cancellationToken)
@@ -376,7 +371,7 @@ public partial class KeycloakAdminTests
       var refreshValue = $"test-refresh-token-{_tokenCounter}";
       var expiryTime = DateTimeOffset.UtcNow.AddSeconds(TokenExpirySeconds);
 
-      return new Six.KeycloakAdmin.TokenCache.TokenCacheEntry(tokenValue, expiryTime, refreshValue);
+      return new TokenCacheEntry(tokenValue, expiryTime, refreshValue);
     }
 
     public new async Task<string?> GetTokenAsync(
@@ -420,9 +415,9 @@ public partial class KeycloakAdminTests
     {
     }
 
-    protected override async Task<Six.KeycloakAdmin.TokenCache.TokenCacheEntry?> RefreshTokenAsync(
+    protected override async Task<TokenCacheEntry?> RefreshTokenAsync(
       string realm,
-      Six.KeycloakAdmin.TokenCache.TokenCacheEntry cachedEntry,
+      TokenCacheEntry cachedEntry,
       CancellationToken cancellationToken = default)
     {
       // Simulate network latency
@@ -436,10 +431,10 @@ public partial class KeycloakAdminTests
       var refreshValue = $"test-refresh-token-{_tokenCounter}";
       var expiryTime = DateTimeOffset.UtcNow.AddSeconds(TokenExpirySeconds);
 
-      return new Six.KeycloakAdmin.TokenCache.TokenCacheEntry(tokenValue, expiryTime, refreshValue);
+      return new TokenCacheEntry(tokenValue, expiryTime, refreshValue);
     }
 
-    async Task<Six.KeycloakAdmin.TokenCache.TokenCacheEntry?> RequestTokenResponseAsync(
+    async Task<TokenCacheEntry?> RequestTokenResponseAsync(
       string realm,
       string username,
       string password,
@@ -456,7 +451,7 @@ public partial class KeycloakAdminTests
       var refreshValue = $"test-refresh-token-{_tokenCounter}";
       var expiryTime = DateTimeOffset.UtcNow.AddSeconds(TokenExpirySeconds);
 
-      return new Six.KeycloakAdmin.TokenCache.TokenCacheEntry(tokenValue, expiryTime, refreshValue);
+      return new TokenCacheEntry(tokenValue, expiryTime, refreshValue);
     }
 
     public new async Task<string?> GetTokenAsync(

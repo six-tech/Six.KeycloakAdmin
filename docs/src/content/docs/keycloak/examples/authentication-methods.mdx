@@ -1,0 +1,153 @@
+---
+title: Authentication Methods
+description: Learn about the different ways to authenticate with Keycloak using Keycloak Admin
+---
+
+
+
+
+
+
+import {Aside} from '@astrojs/starlight/components'
+
+
+# Overview
+
+`Six.KeycloakAdmin` supports multiple authentication methods to suit different use cases and security requirements. Choose the method that best fits your application's architecture and security needs.
+
+The library provides three main authentication approaches:
+
+1. **Basic Authentication** - Username/password for administrative access
+2. **Client Secret Authentication** - Service-to-service communication
+3. **Token-based Authentication** - Use existing authentication tokens
+
+Each method creates an `IKeycloakAdminProvider` that gives you access to all Keycloak administrative operations.
+
+
+## Before we start, let's talk about important auth guidelines
+
+<Aside type="tip">    
+    ### Common security guidelines
+    
+    - **Never hardcode credentials** into source code, `appSettings.json`, `.env` files or any file that can be 
+    commited to repository.
+    - For development use `secrets.json` in combination with Aspire's parameter secrets.
+    - For production use secure configuration providers (**Azure Key Vault, AWS Secrets Manager** and similar) to store 
+    sensitive
+    information.
+    - In production implement credential rotation policies  
+    
+    In the examples below, we used usernames, passwords and client secrets as hard-coded strings. 
+    This is only for example purposes; 
+    
+    **NEVER DO THAT IN REAL CODE!!!**
+</Aside>
+
+
+# IKeycloakAdminService
+`IKeycloakAdminService` is the main entry point for all Keycloak administrative operations. It provides methods for 
+creating, updating, deleting and querying resources. Keycloak Admin automatically registers it with the dependency 
+injection container.
+
+``` csharp
+public class KeycloakClientService
+{
+    private readonly IKeycloakAdminService _keycloakService;
+    private readonly IConfiguration _configuration;
+
+    public KeycloakClientService(
+        IKeycloakAdminService keycloakService,
+        IConfiguration configuration)
+    {
+        _keycloakService = keycloakService;
+        _configuration = configuration;
+    }
+
+    public async Task<IKeycloakAdminProvider> GetProviderAsync()
+    {
+        var clientSecret = _configuration["Keycloak:ClientSecret"];
+        
+        if (string.IsNullOrEmpty(clientSecret))
+        {
+            throw new InvalidOperationException("Client secret not configured");
+        }
+
+        return _keycloakService.GetAdminWithSecret(clientSecret);
+    }
+}
+```
+
+
+# Basic Authentication (Username/Password)
+
+Basic authentication is the most common method for administrative access to Keycloak. This approach uses a username and password combination to authenticate with the Keycloak server. It's suitable for server-to-server communication and administrative scripts.
+
+``` csharp
+// Create provider with basic authentication
+var provider = _keycloakService.GetAdminWithBasicAuth(
+    username: "admin",
+    password: "admin-password");
+```
+
+
+# Client Secret Authentication
+
+Client secret authentication is ideal for service-to-service communication where you have a dedicated client application with its own credentials. This method is more secure than basic auth for automated systems and provides better audit trails.
+
+``` csharp
+// Create provider with client credentials
+var provider = _keycloakService.GetAdminWithSecret(
+    clientSecret: "your-client-secret");
+```
+
+
+# Using Pre-existing Token
+
+When you already have a valid authentication token (perhaps from a previous authentication flow), you can use it directly without going through the authentication process again.
+
+``` csharp
+public IKeycloakAdminProvider GetProviderWithToken(string token)
+{
+    // Create provider with existing token
+    var provider = _keycloakService.GetAdminWithToken(token);
+    return provider;
+}
+```
+
+
+# Token Caching, Refresh and Validation
+**Keycloak Admin** automatically tries to refresh the token if it's expired. If the token cannot be refreshed, an 
+exception will be thrown.
+
+Once the token is obtained, **it's cached for future use** to avoid unnecessary network calls to Keycloak service.
+When tokens are cached, they are stored as `SecureString` and are not accessible from the application's memory to
+avoid tampering.
+
+
+``` csharp
+public class TokenBasedKeycloakService
+{
+    private readonly IKeycloakAdminService _keycloakService;
+    private readonly ITokenValidator _tokenValidator;
+
+    public TokenBasedKeycloakService(
+        IKeycloakAdminService keycloakService,
+        ITokenValidator tokenValidator)
+    {
+        _keycloakService = keycloakService;
+        _tokenValidator = tokenValidator;
+    }
+
+    public async Task<IKeycloakAdminProvider> GetProviderAsync(string token)
+    {
+        // Keycloak Admin tried to automatically refress tokens using cached refresh token. 
+        // Nevertheless, you can validate token before use if you need more control.
+        if (!await _tokenValidator.IsValidAsync(token))
+        {
+            throw new UnauthorizedAccessException("Invalid or expired token");
+        }
+
+        return _keycloakService.GetAdminWithToken(token);
+    }
+}
+```

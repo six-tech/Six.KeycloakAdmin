@@ -1,0 +1,117 @@
+---
+title: Setup and Configuration
+description: How to install and configure Keycloak Admin in your project
+---
+
+
+
+import {TabItem, Tabs} from '@astrojs/starlight/components';
+
+# Installation
+
+The `Six.KeycloakAdmin` library is distributed as a **NuGet package**. Add it to your project to get started with Keycloak
+administration capabilities.
+
+<Tabs>
+  <TabItem label="Package Reference">
+    ```
+    <PackageReference Include="Six.KeycloakAdmin" Version="1.0.0"/>
+    ```
+  </TabItem>
+  
+  <TabItem label="NuGet Package Manager">
+    ```
+    Install-Package Six.KeycloakAdmin
+    ```
+  </TabItem>
+  
+  <TabItem label=".NET CLI">
+    ```
+    dotnet add package Six.KeycloakAdmin
+    ```
+  </TabItem>
+</Tabs>
+
+# Basic Configuration
+
+The most straightforward way to configure `Six.KeycloakAdmin` is by using the `AddKeycloakAdmin` extension method. 
+
+This approach gives you full control over the configuration and is ideal for scenarios where you want to set values programmatically.
+
+
+## Configuration Options
+
+The `KeycloakAdminOptions` class provides several configuration properties:
+
+
+| Property         | Type       | Description                               | Default      |
+|------------------|------------|-------------------------------------------|--------------|
+| `BaseUrl`        | `string`   | The base URL of your Keycloak server      | Required     |
+| `AdminClientId`  | `string`   | The admin client ID (usually `admin-cli`) | Required     |
+| `HttpTimeout`    | `TimeSpan` | HTTP client timeout (minutes)             | `00:01:00`   |
+| `HttpClientName` | `string`   | Name for the HttpClient                   | `"Keycloak"` |
+
+
+``` csharp
+using Six.KeycloakAdmin.Extensions;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add Keycloak services with configuration
+builder.Services.AddKeycloakAdmin(options =>
+{
+    options.BaseUrl = "https://your-keycloak-server.com";
+    options.AdminClientId = "admin-cli";
+    options.HttpTimeout = TimeSpan.FromSeconds(60);
+});
+
+var app = builder.Build();
+```
+
+## Configuring with appSettings.json
+
+Configuring `Six.KeycloakAdmin` is easy and provides a flexible way to configure directly with a delegate and/or via
+`appsettings.json`. The default configuration section path is `Keycloak`.
+
+``` json
+{
+  "Keycloak": {
+    "BaseUrl": "https://your-keycloak-server.com",
+    "AdminClientId": "admin-cli",
+    "HttpTimeout": "00:01:00"
+  }
+}
+```
+
+### Customizing the Configuration Section Path
+One can customize the configuration section path to better fit into the custom `appSettings.json` structure using 
+`configurationSection` property in `AddKeycloakAdmin` extension method.
+
+``` csharp
+// Combine appsettings.json with programmatic overrides
+builder.Services.AddKeycloakAdmin(
+    configureOptions: options =>
+    {
+        // Override specific values
+        options.BaseUrl = "https://production-keycloak.com";
+        options.HttpTimeout = TimeSpan.FromSeconds(120);
+    },
+    configurationSection: "My:Keycloak:Path");
+```
+
+... and then in `appsettings.json`:
+
+``` json
+{
+  "My": {
+    "Keycloak": {
+      "Path": {
+        "BaseUrl": "https://development-keycloak.com",
+        "AdminClientId": "admin-cli",
+        "HttpTimeout": "00:00:30"
+      }
+    }    
+  }
+}
+```
+

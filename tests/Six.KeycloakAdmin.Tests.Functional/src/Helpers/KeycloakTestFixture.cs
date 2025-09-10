@@ -1,6 +1,5 @@
-using Microsoft.Extensions.Logging;
-using Six.KeycloakAdmin.Extensions;
-using Six.KeycloakAdmin.Tests.AppHost;
+using Aspire.Hosting;
+using Projects;
 
 namespace Six.KeycloakAdmin.Tests.Functional;
 
@@ -13,7 +12,7 @@ namespace Six.KeycloakAdmin.Tests.Functional;
 public class KeycloakTestFixture : IAsyncLifetime
 {
   static readonly TimeSpan _defaultTimeout = TimeSpan.FromSeconds(120);
-  Aspire.Hosting.DistributedApplication _app = null!;
+  DistributedApplication _app = null!;
 
   /// <summary>
   /// Gets the Keycloak admin client for use in tests.
@@ -34,7 +33,7 @@ public class KeycloakTestFixture : IAsyncLifetime
     // Arrange
     var cancellationToken = new CancellationTokenSource(_defaultTimeout).Token;
     var appHost =
-      await DistributedApplicationTestingBuilder.CreateAsync<Projects.Six_KeycloakAdmin_Tests_AppHost>(
+      await DistributedApplicationTestingBuilder.CreateAsync<Six_KeycloakAdmin_Tests_AppHost>(
         args: ["DcpPublisher:RandomizePorts=false"], // We disable port randomization for tests
         cancellationToken: cancellationToken);
 
