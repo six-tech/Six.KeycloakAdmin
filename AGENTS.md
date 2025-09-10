@@ -1,13 +1,63 @@
 # AGENTS.md
 
-A comprehensive guide for AI coding agents working with the **Six.SolutionTemplate** repository. This template provides
-the context and instructions needed to help AI agents work effectively on .NET C# projects using this template.
+A comprehensive guide for AI coding agents working with the **Six.KeycloakAdmin** repository. This library provides
+the context and instructions needed to help AI agents work effectively on this .NET C# Keycloak administration client library built using the Six.SolutionTemplate.
 
 ## 🏗️ Project Overview
 
-**Six.SolutionTemplate** is a GitHub template repository for creating .NET C# projects with professional tooling,
-automated workflows, and professional documentation setup. It's designed for building libraries and applications with
-minimal configuration overhead.
+**Six.KeycloakAdmin** is a comprehensive .NET client library that provides extensive access to **Keycloak administration APIs**. This library simplifies integration with Keycloak servers, offering a clean and intuitive interface for managing users, clients, roles, realms, and more.
+
+### What is Six.KeycloakAdmin?
+
+Six.KeycloakAdmin is a modern, high-performance .NET client library designed to interact with Keycloak's administration REST API. It was originally forked from [Keycloak.NET by Silent Partner Software](https://github.com/silentpartnersoftware/Keycloak.Net) and has been significantly enhanced with modern .NET features and best practices.
+
+### Key Features
+
+- **🔐 Multiple Authentication Methods**: Support for basic authentication, client secret, and token-based authentication
+- **⚡ Smart Token Caching**: Centralized token caching using `MemoryCache` with automatic refresh and secure storage
+- **🧵 Thread-Safe Operations**: All models are immutable records ensuring thread safety
+- **🎯 Organized API Surface**: Clean separation of concerns with dedicated client categories (Users, Clients, Roles, etc.)
+- **🚀 .NET Aspire Integration**: Seamless integration with .NET Aspire for service discovery and orchestration
+- **🧪 Testing Ready**: Built-in Aspire integration for testing - no additional setup required
+- **📦 Minimal Dependencies**: Uses built-in .NET libraries, removed Flurl dependency in favor of HttpClient
+- **🔒 Secure Token Storage**: Uses `SecureString` for token storage with automatic disposal
+
+### Library Architecture
+
+The library is organized into two main packages:
+
+1. **Six.KeycloakAdmin** - Main client library with admin services and providers
+2. **Six.KeycloakAdmin.Common** - Shared models, converters, and common utilities
+
+### Available Admin Categories
+
+Each `IKeycloakAdminClient` instance provides organized access to different Keycloak management areas:
+
+- `AttackDetection` - Security and brute force detection
+- `AuthenticationManagement` - Authentication flows
+- `ClientAttributeCertificate` - Certificate management
+- `ClientInitialAccess` - Client registration
+- `ClientRegistrationPolicy` - Registration policies
+- `ClientRoleMappings` - Client role mappings
+- `Clients` - Client management
+- `ClientScopes` - Client scopes
+- `Components` - Component management
+- `Groups` - Group management
+- `IdentityProviders` - Identity providers
+- `Key` - Key management
+- `ProtocolMappers` - Protocol mappers
+- `RealmsAdmin` - Realm administration
+- `RoleMapper` - Role mappings
+- `Roles` - Role management
+- `RolesById` - Role operations by ID
+- `ScopeMappings` - Scope mappings
+- `ServerInfo` - Server information
+- `Users` - User management
+- `UserStorageProvider` - User storage providers
+
+### Built on Six.SolutionTemplate
+
+This library is built using the [Six.SolutionTemplate](https://github.com/six-tech/Six.SolutionTemplate), which provides professional tooling, automated workflows, and comprehensive documentation setup. All the template features and workflows are available for this project.
 
 ### Key Components
 
@@ -84,6 +134,145 @@ The `setup.cs` script is a comprehensive setup and configuration tool that autom
 - Interactive prompts with sensible defaults
 - Comprehensive error handling and validation
 
+## 🔐 Working with Six.KeycloakAdmin
+
+### Library Usage
+
+The Six.KeycloakAdmin library provides a comprehensive .NET client for Keycloak administration. Here's how to work with it effectively:
+
+#### Basic Setup and Configuration
+
+```csharp
+// Add to your service collection
+builder.Services.AddKeycloakAdmin(options =>
+{
+    options.BaseUrl = "https://your-keycloak-server.com";
+    options.AdminClientId = "admin-cli";
+    options.HttpTimeout = TimeSpan.FromMinutes(1);
+});
+
+// Inject the service
+public class UserController : ControllerBase
+{
+    readonly IKeycloakAdminService _keycloakService;
+    
+    public UserController(IKeycloakAdminService keycloakService)
+    {
+        _keycloakService = keycloakService;
+    }
+}
+```
+
+#### Authentication Methods
+
+The library supports three authentication methods:
+
+**Basic Authentication:**
+```csharp
+var adminClient = _keycloakService.GetAdminWithBasicAuth("admin", "password");
+var users = await adminClient.Users.GetUsersAsync("my-realm");
+```
+
+**Client Secret:**
+```csharp
+var adminClient = _keycloakService.GetAdminWithSecret("your-client-secret");
+var clients = await adminClient.Clients.GetClientsAsync("my-realm");
+```
+
+**Token-based:**
+```csharp
+var adminClient = _keycloakService.GetAdminWithToken("your-access-token");
+var roles = await adminClient.Roles.GetRolesAsync("my-realm");
+```
+
+#### .NET Aspire Integration
+
+For .NET Aspire projects, use the simplified configuration:
+
+```csharp
+// In AppHost
+var keycloak = builder.AddKeycloak("keycloak", 8080)
+    .WithDataVolume()
+    .WithRealmImport("realm-export.json");
+
+builder.AddProject<Projects.MyApi>("myapi")
+    .WithReference(keycloak);
+
+// In your service
+builder.Services.AddKeycloakAdmin("keycloak", options =>
+{
+    options.AdminClientId = "admin-cli";
+});
+```
+
+#### Working with Different Admin Categories
+
+Each admin client provides organized access to different Keycloak areas:
+
+```csharp
+var adminClient = _keycloakService.GetAdminWithBasicAuth("admin", "password");
+
+// User management
+var users = await adminClient.Users.GetUsersAsync("my-realm");
+var user = await adminClient.Users.GetUserAsync("my-realm", "user-id");
+
+// Client management  
+var clients = await adminClient.Clients.GetClientsAsync("my-realm");
+var client = await adminClient.Clients.GetClientAsync("my-realm", "client-id");
+
+// Role management
+var roles = await adminClient.Roles.GetRolesAsync("my-realm");
+await adminClient.Roles.CreateRoleAsync("my-realm", new Role { Name = "new-role" });
+
+// Realm administration
+var realms = await adminClient.RealmsAdmin.GetRealmsAsync();
+var realmInfo = await adminClient.RealmsAdmin.GetRealmAsync("my-realm");
+```
+
+### Key Architectural Patterns
+
+- **Immutable Models**: All Keycloak models are immutable records for thread safety
+- **Token Caching**: Automatic token caching and refresh to minimize API calls
+- **Secure Storage**: Tokens are stored securely using `SecureString`
+- **Organized API Surface**: Clean separation of concerns with dedicated categories
+- **Dependency Injection Ready**: Full support for .NET DI container
+
+### Common Development Tasks
+
+**Creating a new user:**
+```csharp
+var newUser = new User
+{
+    Username = "john.doe",
+    Email = "john@example.com",
+    FirstName = "John",
+    LastName = "Doe",
+    Enabled = true
+};
+
+await adminClient.Users.CreateUserAsync("my-realm", newUser);
+```
+
+**Managing user roles:**
+```csharp
+var roles = await adminClient.Roles.GetRolesAsync("my-realm");
+await adminClient.Users.AddRolesToUserAsync("my-realm", "user-id", roles.Take(2));
+```
+
+**Client configuration:**
+```csharp
+var client = new Client
+{
+    ClientId = "my-app",
+    Name = "My Application",
+    Enabled = true,
+    PublicClient = false,
+    ServiceAccountsEnabled = true
+};
+
+await adminClient.Clients.CreateClientAsync("my-realm", client);
+```
+
 ## 🧪 Testing Instructions
 
 ### Running Tests
@@ -110,13 +299,29 @@ The `setup.cs` script is a comprehensive setup and configuration tool that autom
 ### Project Structure
 
 ```
-Six.SolutionTemplate/
-├── apps/                    # Application projects (console, web applications, Avalonia etc.)
-├── libs/                    # Library projects 
+Six.KeycloakAdmin/
+├── libs/                    # Library projects
+│   ├── Six.KeycloakAdmin/           # Main Keycloak admin client library
+│   │   ├── src/
+│   │   │   ├── Abstractions/        # Interface definitions
+│   │   │   ├── AdminProviders/      # Admin client providers
+│   │   │   ├── Http/                # HTTP client utilities
+│   │   │   ├── Services/            # Admin service implementations
+│   │   │   ├── TokenCache/          # Token caching implementation
+│   │   │   ├── TokenProvider/       # Authentication token providers
+│   │   │   ├── KeycloakAdminService.cs
+│   │   │   └── KeycloakAdminServiceExtensions.cs
+│   │   └── Six.KeycloakAdmin.csproj
+│   └── Six.KeycloakAdmin.Common/    # Shared models and utilities
+│       ├── src/
+│       │   ├── Converters/          # JSON converters
+│       │   └── Models/              # Keycloak data models (191 files)
+│       └── Six.KeycloakAdmin.Common.csproj
 ├── tests/                   # Test projects
-├── benchmarks/              # Benchmarking projects    
+│   ├── Six.KeycloakAdmin.Tests.AppHost/        # Aspire test host
+│   └── Six.KeycloakAdmin.Tests.Functional/     # Functional tests
 ├── scripts/                 # C# build scripts
-├── docs/                    # Documentation site
+├── docs/                    # Documentation site (Astro.js/Starlight)
 └── .github/workflows/       # CI/CD pipelines
 ```
 
@@ -438,11 +643,14 @@ Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
 
 ### Project-Specific Resources
 
-- [Six.SolutionTemplate Documentation](https://six-tech.github.io/Six.SolutionTemplate)
-- [GitHub Repository](https://github.com/six-tech/Six.SolutionTemplate)
+- [Six.KeycloakAdmin Documentation](https://six-tech.github.io/Six.KeycloakAdmin)
+- [Six.KeycloakAdmin GitHub Repository](https://github.com/six-tech/Six.KeycloakAdmin)
+- [Six.SolutionTemplate Documentation](https://six-tech.github.io/Six.SolutionTemplate) (Base template)
+- [Six.SolutionTemplate GitHub Repository](https://github.com/six-tech/Six.SolutionTemplate) (Base template)
 
 ---
 
-**Note**: This AGENTS.md file is designed to help AI coding agents work effectively with the Six.SolutionTemplate
+**Note**: This AGENTS.md file is designed to help AI coding agents work effectively with the **Six.KeycloakAdmin**
 repository. It provides comprehensive guidance for development, testing, packaging, and documentation tasks while
-maintaining the high-quality standards expected in enterprise .NET development.
+maintaining the high-quality standards expected in enterprise .NET development. The library is built on the
+Six.SolutionTemplate foundation, providing all the professional tooling and workflows needed for modern .NET library development.

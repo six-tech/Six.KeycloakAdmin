@@ -41,5 +41,6 @@
     <File Path="global.json" />
     <File Path="Directory.Build.props" />
     <File Path="docs\astro.config.mjs" />
+    <File Path="nuget.config" />
   </Folder>
 </Solution>

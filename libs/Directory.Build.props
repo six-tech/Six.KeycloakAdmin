@@ -27,7 +27,6 @@
         <!-- Repository Information -->
         <PackageProjectUrl>https://six.technology</PackageProjectUrl>
         <RepositoryUrl>https://github.com/six-tech/Six.KeycloakAdmin</RepositoryUrl>
-        <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <RepositoryType>git</RepositoryType>
 
         <!-- Embedded Assets -->
