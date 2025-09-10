@@ -4,7 +4,8 @@
     <Import Project="$(MSBuildThisFileDirectory)../Directory.Build.props"
             Condition="Exists('$(MSBuildThisFileDirectory)../Directory.Build.props')" />
     
-    <PropertyGroup>
+    <!-- Only apply test configuration to actual test projects, not Aspire AppHost -->
+    <PropertyGroup Condition="'$(IsAspireHost)' != 'true'">
         <TargetFramework>net9.0</TargetFramework>
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
@@ -27,7 +28,8 @@
         <Threshold>80</Threshold>
     </PropertyGroup>
 
-    <ItemGroup>
+    <!-- Only add test packages to actual test projects, not AppHost -->
+    <ItemGroup Condition="'$(IsAspireHost)' != 'true'">
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
         <PackageReference Include="xunit" Version="2.9.3" />
         <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4">

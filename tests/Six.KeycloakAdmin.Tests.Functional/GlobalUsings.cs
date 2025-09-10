@@ -12,6 +12,7 @@ global using System.Diagnostics;
 global using System.Text.Json.Serialization;
 global using Aspire.Hosting.Testing;
 
+global using Six.KeycloakAdmin;
 global using Six.KeycloakAdmin.TokenProvider;
 global using Six.KeycloakAdmin.Extensions;
 global using Six.KeycloakAdmin.Tests.AppHost;
