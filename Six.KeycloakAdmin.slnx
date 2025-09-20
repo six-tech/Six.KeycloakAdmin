@@ -42,5 +42,6 @@
     <File Path="Directory.Build.props" />
     <File Path="docs\astro.config.mjs" />
     <File Path="nuget.config" />
+    <File Path="init.cs" />
   </Folder>
 </Solution>

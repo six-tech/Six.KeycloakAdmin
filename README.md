@@ -1,4 +1,4 @@
-![Six Keycloak Hero](assets/six-keycloak-admin-banner-wide-1980-01.png)
+![Six Keycloak Hero](docs/src/assets/six-keycloak-admin-banner-wide-1980-01.png)
 
 [![license](https://img.shields.io/github/license/six-tech/Six.KeycloakAdmin.svg?maxAge=2592000)](https://github.com/six-tech/Six.KeycloakAdmin/blob/master/LICENSE) [![NuGet](https://img.shields.io/nuget/v/Keycloak.Net.Core?maxAge=2592000)](https://www.nuget.org/packages/Keycloak.Net.Core/) [![downloads](https://img.shields.io/nuget/dt/Keycloak.Net.Core)](https://www.nuget.org/packages/Keycloak.Net.Core/)
 

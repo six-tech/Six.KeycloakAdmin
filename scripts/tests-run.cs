@@ -1,4 +1,7 @@
 #!/usr/bin/env dotnet
+#:sdk Microsoft.NET.Sdk
+#:property LangVersion 13
+
 #:package CliWrap@3.6.6
 #:package Spectre.Console@0.49.1
 
@@ -16,11 +19,8 @@ if (currentDir.EndsWith("scripts"))
     Directory.SetCurrentDirectory("..");
 }
 
-// Projects to ignore (not actual test projects)
-var ignoredProjects = new List<string>
-{
-    "Six.KeycloakAdmin.Tests.AppHost" // Aspire app host for spinning up Keycloak in Docker
-};
+// Projects to ignore for testing
+List<string> ignoredProjects = [];
 
 // Run all tests in the solution
 await AnsiConsole.Status()

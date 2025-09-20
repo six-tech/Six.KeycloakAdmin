@@ -19,7 +19,7 @@
         <Authors>Six Technology</Authors>
         <Company>Six Technology</Company>
         <Description>.NET admin client for Keycloak. Gives programmatical access to Keycloak's admin API.</Description>
-        <PackageTags>six;awesome;library</PackageTags>
+        <PackageTags>six;keycloak;client;auth;authz</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <Copyright>© $([System.DateTime]::Now.Year) Six Technology, Inc. All rights reserved.</Copyright>

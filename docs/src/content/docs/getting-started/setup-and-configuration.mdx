@@ -4,8 +4,62 @@ description: How to install and configure Keycloak Admin in your project
 ---
 
 
+import {Card, CardGrid, TabItem, Tabs} from '@astrojs/starlight/components';
 
-import {TabItem, Tabs} from '@astrojs/starlight/components';
+# Introduction
+
+This solution provides an automated initialization process that handles all the initial configuration tasks,
+making it easy to get started with your new project.
+
+## Prerequisites
+
+Before running the setup, ensure you have the following tools installed:
+
+<CardGrid>
+
+    <Card title="🔧 .NET 10 SDK" icon="download">
+        ### Required Tool
+        - **Download**: [dotnet.microsoft.com/download](https://dotnet.microsoft.com/download)
+        - **Purpose**: Builds and runs .NET projects, executes C# scripts
+        - **Verification**: Run `dotnet --version` to check installation
+    </Card>
+
+    <Card title="📦 Package Managers" icon="npm">
+        ### Choose One
+        #### pnpm (Recommended)
+        - **Install**: `npm install -g pnpm`
+        - **Advantages**: Faster, disk-efficient, better dependency management
+        - **Website**: [pnpm.io](https://pnpm.io/)
+
+        #### npm (Alternative)
+        - **Included with**: [Node.js](https://nodejs.org/)
+        - **Verification**: Run `npm --version` to check installation
+    </Card>
+
+</CardGrid>
+
+
+## Six Solution Template
+
+![Hero Image](../../../assets/six-solution-hero-banner.png)
+
+**Six Keycloak Admin** has been built using [**Six Solution Template**](https://six-tech.github.io/Six.SolutionTemplate/six/introduction/),
+which provides a standardized project structure, AI helpers, built-in in-repository documentation, development
+scripts, and more.
+
+If you are modifying the code of this library or using it from the source, please explore the features and structure of
+the template before proceeding:
+
+- [Standardized project structure](https://six-tech.github.io/Six.SolutionTemplate/six/structure/) for libraries, applications, tests, and benchmarks
+- [Hierarchical configuration management](https://six-tech.github.io/Six.SolutionTemplate/six/structure/str-configuration/) with sensible defaults
+- [C#-based development scripts](https://six-tech.github.io/Six.SolutionTemplate/six/scripts/) for cross-platform automation (testing, packaging, and publishing)
+- [Cursor and Kiro rules](https://six-tech.github.io/Six.SolutionTemplate/six/ai/introduction/) for AI assistance
+- [In-Repository Documentation](https://six-tech.github.io/Six.SolutionTemplate/six/project-documentation/setting-up-documentation/)
+- [Automatic deployment](https://six-tech.github.io/Six.SolutionTemplate/six/github-workflow-integration/) of documentation to GitHub Pages
+
+
+Please explore the whole [feature-set here](https://six-tech.github.io/Six.SolutionTemplate/six/introduction/)
+
 
 # Installation
 
